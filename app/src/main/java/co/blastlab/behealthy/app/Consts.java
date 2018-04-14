@@ -5,4 +5,5 @@ public interface Consts {
 	String QUESTS_URL = "http://quests:8080/";
 	String ENDO_URL = "http://endo:8080/";
 	String REWARD_URL = "http://reward:8080/";
+	String SHOP_URL = "http://shop:8080/";
 }
