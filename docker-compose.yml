@@ -1,0 +1,4 @@
+version: "3"
+services:
+  endo:
+    build: endo
