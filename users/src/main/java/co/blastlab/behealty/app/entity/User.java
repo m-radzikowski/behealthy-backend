@@ -21,7 +21,12 @@ public class User {
 	private String password;
 
 	private long endoId;
+	private String cookie;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date lastTimeUpdated;
 
 	private int availableChests;
 	private long gold;
+	private long exp;
+	private long lvl;
 }
