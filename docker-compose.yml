@@ -20,6 +20,13 @@ services:
     volumes:
       - ./users/deployments:/opt/jboss/wildfly/standalone/deployments
 
+  quests:
+    build: quests
+    ports:
+      - '110:8080'
+    volumes:
+      - ./quests/deployments:/opt/jboss/wildfly/standalone/deployments
+
   db:
     image: mariadb:10.1.18
     ports:
