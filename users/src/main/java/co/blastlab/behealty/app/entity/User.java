@@ -1,5 +1,6 @@
 package co.blastlab.behealty.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
 	@Id
