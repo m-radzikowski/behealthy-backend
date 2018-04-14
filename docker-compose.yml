@@ -12,3 +12,22 @@ services:
     build: endo
     ports:
       - '90:8080'
+
+  users:
+    build: users
+    ports:
+      - '100:8080'
+    volumes:
+      - ./users/deployments:/opt/jboss/wildfly/standalone/deployments
+
+  db:
+    image: mariadb:10.1.18
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    environment:
+      LANG: C.UTF-8
+      MYSQL_DATABASE: test
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      TZ: Europe/Warsaw

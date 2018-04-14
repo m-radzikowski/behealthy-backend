@@ -1,4 +1,4 @@
-package co.blastlab.behalthy;
+package co.blastlab.behealthy.app;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

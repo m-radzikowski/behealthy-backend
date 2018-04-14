@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>co.blastlab.behealthy</groupId>
-	<artifactId>app</artifactId>
+	<artifactId>users</artifactId>
 	<version>0.1.0</version>
 	<packaging>war</packaging>
 
@@ -19,6 +19,13 @@
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.20</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
