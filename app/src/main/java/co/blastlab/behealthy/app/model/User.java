@@ -18,4 +18,5 @@ public class User {
     private Date lastTimeUpdated;
     private long exp;
     private long lvl;
+    private String login;
 }
