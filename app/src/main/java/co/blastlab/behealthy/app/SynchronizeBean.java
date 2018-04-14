@@ -1,4 +1,4 @@
-package co.blastlab.behalthy;
+package co.blastlab.behealthy.app;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
