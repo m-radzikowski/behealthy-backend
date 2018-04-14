@@ -18,8 +18,7 @@ public class LoginBean {
 	@GET
 	public Response login(@QueryParam("login") String login, @QueryParam("password") String password) {
 		UriBuilder ub = UriBuilder.fromUri(Consts.USERS_URL).path("/login").queryParam("login", login).queryParam("password", password);
-		return rc.proxyQuery(ub);
+		return rc.proxyGet(ub);
 	}
-
 
 }

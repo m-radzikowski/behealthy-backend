@@ -19,6 +19,8 @@ public class User {
 	private String login;
 	private String password;
 
-	private String endoMail;
-	private String endoPassword;
+	private long endoId;
+
+	private int availableChests;
+	private long gold;
 }

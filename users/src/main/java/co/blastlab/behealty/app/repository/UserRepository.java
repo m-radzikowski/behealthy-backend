@@ -9,6 +9,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends EntityRepository<User, Long> {
 
+	Optional<User> findById(Long id);
+
 	Optional<User> findByLoginAndPassword(String login, String password);
 
 }
