@@ -29,6 +29,13 @@ services:
     volumes:
       - ./quests/deployments:/opt/jboss/wildfly/standalone/deployments
 
+  shop:
+    build: shop
+    ports:
+      - '120:8080'
+    volumes:
+      - ./shop/deployments:/opt/jboss/wildfly/standalone/deployments
+
   reward:
     build: reward
     ports:
