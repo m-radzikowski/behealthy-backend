@@ -1,6 +1,6 @@
 insert into users.User set id = 1, login = "maciej", password = "qwerty", availableChests = 10, gold = 2000,
   lvl = 0, exp = 0, lastTimeUpdated = now(), endoId = 36566507,
-  cookie = "_1AEB03073D95835900000162C58672B6VQZFfUKxgeOaQ10V05uYzB2CDBefjAHWsB9QoK3twZMYH5vTNpU8FfVt3KJNsHQi9P9UX9SunfqyddPDZmcSUCQGu1rwOIjZQaVmcx8IHIU%3D"
+  cookie = "_03CF335F36B39C6100000162C5C494E9RQt20a22uIchRNJxUxcgwgZIXq30vL99Yz4n2r%2Bk3mxC5vecBfYFM3pY7mNiOrvb218K673VwK6Y%2BZCOVxhGfNKQzn4iApz7D896r8MBrts%3D"
 ;
 
 insert into quests.Quest set id = 1, date = now(), title = "Rowerowy wyscig", description = "Czy zabrales ze soba rower?", type = "BIKE", value = 10;

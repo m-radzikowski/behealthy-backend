@@ -12,4 +12,5 @@ public class Workout {
     private Double speed_avg;
     private Double duration;
     private String start_time;
+    private String local_start_time;
 }

@@ -38,8 +38,9 @@ public class SynchronizeBean {
 	private List<Workout> getWorkouts(Integer userId, Date after, String cookie) throws UnsupportedEncodingException {
 		Client client = ClientBuilder.newClient();
 		after.setSeconds(after.getSeconds() + 1);
+//		after.setHours(after.getHours() - 2); // to UTC
 		Date now = new Date();
-//		now.setHours(now.getHours() + 2);
+//		now.setHours(now.getHours() - 2); // to UTC
 		UriBuilder ub = UriBuilder.fromUri("https://www.endomondo.com/rest/v1")
 				.path(String.format("/users/%s/workouts", userId))
 				.queryParam("before", df.format(now))
