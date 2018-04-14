@@ -19,4 +19,5 @@ public class User {
     private long exp;
     private long lvl;
     private String login;
+    private int availableChests;
 }

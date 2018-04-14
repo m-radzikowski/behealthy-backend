@@ -33,6 +33,7 @@ public class SynchronizeBean {
 		long newLevel = calculateLevel(user.getExp());
 		long addedLvl = newLevel - user.getLvl();
 		user.setLvl(newLevel);
+		user.setAvailableChests(user.getAvailableChests() + 1);
 
 		UserChanges changes = new UserChanges();
 		changes.setAddedExp(addedExp);

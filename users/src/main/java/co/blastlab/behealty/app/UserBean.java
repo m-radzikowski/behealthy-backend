@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-import java.util.Date;
 
 @Stateless
 @Path("/user/{userId}")
@@ -59,6 +58,7 @@ public class UserBean {
         user.setExp(update.getExp());
         user.setLvl(update.getLvl());
         user.setLastTimeUpdated(update.getLastTimeUpdated());
+        user.setAvailableChests(update.getAvailableChests());
         user = userRepository.save(user);
         return Response.ok(user).build();
     }
