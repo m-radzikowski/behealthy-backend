@@ -29,6 +29,13 @@ services:
     volumes:
       - ./quests/deployments:/opt/jboss/wildfly/standalone/deployments
 
+  reward:
+    build: reward
+    ports:
+      - '130:8080'
+    volumes:
+      - ./reward/deployments:/opt/jboss/wildfly/standalone/deployments
+
   db:
     image: mariadb:10.1.18
     ports:
