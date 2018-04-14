@@ -70,6 +70,17 @@ public class CouponBean {
 		if (userResponse.getStatus() != 200) {
 			return Response.status(userResponse.getStatus()).entity(userResponse.readEntity(String.class)).build();
 		}
+		userResponse.close();
+
+		UriBuilder addCouponUB = UriBuilder.fromUri(Consts.SHOP_URL)
+			.path("/user/{userId}/coupon/my/{couponId}")
+			.resolveTemplate("userId", userId)
+			.resolveTemplate("couponId", coupon.getId());
+
+		client.target(addCouponUB)
+			.request(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.post(null);
 
 		return Response.ok(coupon).build();
 	}

@@ -1,38 +1,61 @@
 package co.blastlab.behealthy.shop;
 
 import javax.ejb.Stateless;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
+import javax.inject.Inject;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Response;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Stateless
 @Path("/user/{userId}/coupon")
 public class CouponBean {
 
+	@Inject
+	private CouponRepository couponRepository;
+
+	@Inject
+	private CouponUserRepository couponUserRepository;
+
 	@GET
 	@Path("/available")
-	public List<Coupon> available() {
-		return Stream.of(
-			new Coupon(1, "Talon na balon", "Z tym kuponem możesz odebrać darmowy balon w każdym sklepie z balonami", 1500),
-			new Coupon(2, "Kawa w BIOWAY", "Odbierz darmową kawę do posiłku w BIOWAY", 5300),
-			new Coupon(3, "Lorem ipsum", "Pamiętaj o uzupełnieniu tego opisu przed demo", 4500)
-		).collect(Collectors.toList());
+	public List<Coupon> available(@PathParam("userId") long userId) {
+		List<Coupon> userCoupons = couponRepository.findByUserId(userId);
+
+		return couponRepository.findAll().stream()
+			.filter(c -> userCoupons.stream().noneMatch(uc -> uc.getId() == c.getId()))
+			.collect(Collectors.toList());
 	}
 
 	@GET
 	@Path("/my")
-	public List<Coupon> my() {
-		return Stream.of(
-			new Coupon(1, "Talon na balon", "Z tym kuponem możesz odebrać darmowy balon w każdym sklepie z balonami", 1500)
-		).collect(Collectors.toList());
+	public List<Coupon> my(@PathParam("userId") long userId) {
+		return couponRepository.findByUserId(userId);
+	}
+
+	@POST
+	@Path("/my/{couponId}")
+	public Response add(@PathParam("userId") long userId, @PathParam("couponId") long couponId) {
+		Coupon coupon = couponRepository.findById(couponId).orElseThrow(() -> new BadRequestException("Coupon not found"));
+
+		if (coupon.getUsers().stream().anyMatch(cu -> cu.getUserId() == userId)) {
+			throw new BadRequestException("User already has this coupon");
+		}
+
+		CouponUser cu = new CouponUser();
+		cu.setBoughtAt(new Date());
+		cu.setCoupon(coupon);
+		cu.setUserId(userId);
+		couponUserRepository.save(cu);
+
+		return Response.ok().build();
 	}
 
 	@GET
 	@Path("/{couponId}")
-	public Coupon get() {
-		return new Coupon(1, "Talon na balon", "Z tym kuponem możesz odebrać darmowy balon w każdym sklepie z balonami", 1500);
+	public Coupon get(@PathParam("couponId") long couponId) {
+		return couponRepository.findBy(couponId);
 	}
 
 }
