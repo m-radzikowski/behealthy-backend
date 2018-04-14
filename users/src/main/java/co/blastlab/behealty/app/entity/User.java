@@ -16,4 +16,9 @@ public class User {
 	@GeneratedValue
 	private long id;
 
+	private String login;
+	private String password;
+
+	private String endoMail;
+	private String endoPassword;
 }
