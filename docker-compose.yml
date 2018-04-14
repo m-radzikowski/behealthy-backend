@@ -12,3 +12,5 @@ services:
     build: endo
     ports:
       - '90:8080'
+    volumes:
+      - ./endo/deployments:/opt/jboss/wildfly/standalone/deployments
