@@ -10,7 +10,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +34,7 @@ public class QuestBean {
 			dto.setType(q.getType());
 			dto.setValue(q.getValue());
 			dto.setDate(q.getDate());
+			dto.setExp(q.getExp());
 
 			dto.setDone(q.getUsers().stream().anyMatch(u -> u.getUserId() == userId));
 
@@ -47,17 +47,26 @@ public class QuestBean {
 	public Response checkAndComplete(@PathParam("userId") long userId, List<Workout> workouts) {
 		List<Quest> quests = questRepository.findByDate(new Date());
 
-		quests.forEach(q -> {
+		int exp = 0;
+
+		for (Quest q : quests) {
+			if (q.getUsers().stream().anyMatch(u -> u.getUserId() == userId)) {
+				continue;
+			}
+
 			if (q.getType().equals("RUN") && workouts.stream().anyMatch(w -> w.getSport() == 0 && w.getDistance() >= q.getValue())) {
 				markCompleted(userId, q);
+				exp += q.getExp();
 			} else if (q.getType().equals("BIKE") && workouts.stream().anyMatch(w -> w.getSport() == 1 && w.getDistance() >= q.getValue())) {
 				markCompleted(userId, q);
+				exp += q.getExp();
 			} else if (q.getType().equals("KCAL") && workouts.stream().anyMatch(w -> w.getCalories() >= q.getValue())) {
 				markCompleted(userId, q);
+				exp += q.getExp();
 			}
-		});
+		}
 
-		return Response.ok().build();
+		return Response.ok(exp).build();
 	}
 
 	private void markCompleted(long userId, Quest quest) {

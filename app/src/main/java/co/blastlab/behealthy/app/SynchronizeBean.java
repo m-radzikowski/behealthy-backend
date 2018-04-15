@@ -28,6 +28,11 @@ public class SynchronizeBean {
 		List<Workout> workouts = getWorkouts(user);
 
 		long addedExp = calculateExp(workouts);
+
+		if (!workouts.isEmpty()) {
+			addedExp += updateQuests(user, workouts);
+		}
+
 		user.setExp(user.getExp() + addedExp);
 		System.out.println("ADDED EXP: " + addedExp);
 
@@ -41,10 +46,6 @@ public class SynchronizeBean {
 		changes.setAddedLvl(addedLvl);
 
 		updateUser(user, workouts);
-
-		if (!workouts.isEmpty()) {
-			updateQuests(user, workouts);
-		}
 
 		return new SyncDto(user, changes);
 	}
@@ -102,13 +103,13 @@ public class SynchronizeBean {
 			.post(Entity.entity(user, MediaType.APPLICATION_JSON));
 	}
 
-	private void updateQuests(User user, List<Workout> workouts) {
+	private int updateQuests(User user, List<Workout> workouts) {
 		UriBuilder ub = UriBuilder.fromUri(Consts.QUESTS_URL).path("/user/{userId}/quest/daily/complete").resolveTemplate("userId", user.getId());
 		Client client = ClientBuilder.newClient();
-		client.target(ub)
+		return client.target(ub)
 			.request(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
-			.post(Entity.entity(workouts, MediaType.APPLICATION_JSON));
+			.post(Entity.entity(workouts, MediaType.APPLICATION_JSON), Integer.class);
 	}
 
 }

@@ -20,6 +20,7 @@ public class Quest {
 	private String description;
 	private String type;
 	private int value;
+	private int exp;
 
 	@Temporal(TemporalType.DATE)
 	private Date date;

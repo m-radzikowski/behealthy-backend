@@ -15,6 +15,7 @@ public class QuestDto {
 	private String description;
 	private String type;
 	private int value;
+	private int exp;
 
 	private Date date;
 
