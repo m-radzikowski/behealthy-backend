@@ -94,6 +94,7 @@ public class CouponBean {
 		private String title;
 		private String description;
 		private int gold;
+		private String type;
 
 	}
 
