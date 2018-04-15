@@ -7,6 +7,6 @@ insert into quests.Quest set id = 1, date = now(), title = "Rowerowy   wyscig", 
 insert into quests.Quest set id = 2, date = now(), title = "Siedmiokilometrowe   buty", description = "Dogon   swoje   przeznaczenie", type = "RUN", value = 7, exp = 250;
 insert into quests.Quest set id = 3, date = now(), title = "Burn   it   down", description = "Kalorie   -   czy   je   spalisz?", type = "KCAL", value = 400, exp = 200;
 
-insert into shop.Coupon set id = 1, title = "Rabat   na   silownie", description = "Z   tym   kuponem   wejscie   na   silownie   w   naszej   sieci   partnerskiej   5%   taniej", gold = 1500;
-insert into shop.Coupon set id = 2, title = "Sok   w   BIOWAY", description = "Odbierz   darmowy   sok   do   posilku   w   BIOWAY", gold = 5300;
-insert into shop.Coupon set id = 3, title = "Tansze   zdrowie", description = "Znizka   10%   na   owoce   i   warzywa   w   sklepach   Carrefour", gold = 4500;
+insert into shop.Coupon set id = 1, title = "Rabat   na   silownie", description = "Z   tym   kuponem   wejscie   na   silownie   w   naszej   sieci   partnerskiej   5%   taniej", gold = 1500, type = "SPORT";
+insert into shop.Coupon set id = 2, title = "Sok   w   BIOWAY", description = "Odbierz   darmowy   sok   do   posilku   w   BIOWAY", gold = 5300, type = "DRINK";
+insert into shop.Coupon set id = 3, title = "Tansze   zdrowie", description = "Znizka   10%   na   owoce   i   warzywa   w   sklepach   Carrefour", gold = 4500, type = "FOOD";

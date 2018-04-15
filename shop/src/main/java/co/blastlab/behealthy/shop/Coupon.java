@@ -26,6 +26,7 @@ public class Coupon {
 	private String title;
 	private String description;
 	private int gold;
+	private String type;
 
 	@OneToMany(mappedBy = "coupon")
 	@JsonIgnore
