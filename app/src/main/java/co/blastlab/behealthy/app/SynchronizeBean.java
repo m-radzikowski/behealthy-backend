@@ -29,17 +29,22 @@ public class SynchronizeBean {
 
 		long addedExp = calculateExp(workouts);
 		user.setExp(user.getExp() + addedExp);
+		System.out.println("ADDED EXP: " + addedExp);
 
 		long newLevel = calculateLevel(user.getExp());
 		long addedLvl = newLevel - user.getLvl();
 		user.setLvl(newLevel);
-		user.setAvailableChests(user.getAvailableChests() + 1);
+		user.setAvailableChests(user.getAvailableChests() + (int) addedLvl);
 
 		UserChanges changes = new UserChanges();
 		changes.setAddedExp(addedExp);
 		changes.setAddedLvl(addedLvl);
 
 		updateUser(user, workouts);
+
+		if (!workouts.isEmpty()) {
+			updateQuests(user, workouts);
+		}
 
 		return new SyncDto(user, changes);
 	}
@@ -95,6 +100,15 @@ public class SynchronizeBean {
 			.request(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
 			.post(Entity.entity(user, MediaType.APPLICATION_JSON));
+	}
+
+	private void updateQuests(User user, List<Workout> workouts) {
+		UriBuilder ub = UriBuilder.fromUri(Consts.QUESTS_URL).path("/user/{userId}/quest/daily/complete").resolveTemplate("userId", user.getId());
+		Client client = ClientBuilder.newClient();
+		client.target(ub)
+			.request(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.post(Entity.entity(workouts, MediaType.APPLICATION_JSON));
 	}
 
 }

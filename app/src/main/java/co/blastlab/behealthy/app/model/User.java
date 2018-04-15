@@ -20,4 +20,5 @@ public class User {
     private long lvl;
     private String login;
     private int availableChests;
+    private int gold;
 }

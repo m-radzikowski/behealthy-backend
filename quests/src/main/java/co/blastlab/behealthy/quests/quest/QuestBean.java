@@ -1,10 +1,16 @@
 package co.blastlab.behealthy.quests.quest;
 
+import co.blastlab.behealthy.quests.model.Workout;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,17 +43,29 @@ public class QuestBean {
 	}
 
 	@POST
-	@Path("/{questId}/complete")
-	public Response markCompleted(@PathParam("userId") long userId, @PathParam("questId") long questId) {
-		Quest quest = questRepository.findByIdAndDate(questId, new Date()).orElseThrow(() -> new BadRequestException("Quest not found"));
+	@Path("/complete")
+	public Response checkAndComplete(@PathParam("userId") long userId, List<Workout> workouts) {
+		List<Quest> quests = questRepository.findByDate(new Date());
 
+		quests.forEach(q -> {
+			if (q.getType().equals("RUN") && workouts.stream().anyMatch(w -> w.getSport() == 0 && w.getDistance() >= q.getValue())) {
+				markCompleted(userId, q);
+			} else if (q.getType().equals("BIKE") && workouts.stream().anyMatch(w -> w.getSport() == 1 && w.getDistance() >= q.getValue())) {
+				markCompleted(userId, q);
+			} else if (q.getType().equals("KCAL") && workouts.stream().anyMatch(w -> w.getCalories() >= q.getValue())) {
+				markCompleted(userId, q);
+			}
+		});
+
+		return Response.ok().build();
+	}
+
+	private void markCompleted(long userId, Quest quest) {
 		QuestUser qu = new QuestUser();
 		qu.setCompletedAt(new Date());
 		qu.setQuest(quest);
 		qu.setUserId(userId);
 		questUserRepository.save(qu);
-
-		return Response.ok().build();
 	}
 
 }
